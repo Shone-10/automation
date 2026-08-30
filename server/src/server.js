@@ -19,10 +19,12 @@ import aiRoutes from './routes/aiRoutes.js';
 const app = express();
 const server = http.createServer(app);
 
+const cleanClientUrl = CLIENT_URL ? CLIENT_URL.replace(/\/$/, '') : '';
+
 // Initialize Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: [CLIENT_URL, 'http://localhost:5173', 'http://127.0.0.1:5173'],
+    origin: [cleanClientUrl, 'http://localhost:5173', 'http://127.0.0.1:5173'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   },
@@ -39,7 +41,7 @@ app.use(helmet({
 }));
 
 app.use(cors({
-  origin: [CLIENT_URL, 'http://localhost:5173', 'http://127.0.0.1:5173'],
+  origin: [cleanClientUrl, 'http://localhost:5173', 'http://127.0.0.1:5173'],
   credentials: true,
 }));
 
